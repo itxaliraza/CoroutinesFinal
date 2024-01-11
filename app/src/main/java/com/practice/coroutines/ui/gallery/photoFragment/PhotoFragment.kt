@@ -14,6 +14,8 @@ import com.practice.coroutines.databinding.FragmentMediaBinding
 import com.practice.coroutines.domain.model.MyResult
 import com.practice.coroutines.ui.gallery.GalleryViewmodel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,29 +43,36 @@ class PhotoFragment : Fragment() {
                 adapter = photoAdapter
             }
 
-            lifecycleScope.launch {
-                galleryViewmodel.photosState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                    .collectLatest {
-                        when (it) {
-                            is MyResult.Failure -> {
+             lifecycleScope.launch {
+                 galleryViewmodel.photosState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                     .collectLatest {
+                         when (it) {
+                             is MyResult.Failure -> {
 
-                            }
+                             }
 
-                            MyResult.Idle -> {
+                             MyResult.Idle -> {
 
-                            }
+                             }
 
-                            MyResult.Loading -> {
-                                pbMain.visibility = View.VISIBLE
-                            }
+                             MyResult.Loading -> {
+                                 pbMain.visibility = View.VISIBLE
+                             }
 
-                            is MyResult.Success -> {
-                                pbMain.visibility = View.GONE
-                                photoAdapter.submitList(it.data)
-                            }
-                        }
-                    }
-            }
+                             is MyResult.Success -> {
+                                 pbMain.visibility = View.GONE
+                                 photoAdapter.submitList(it.data)
+                             }
+                         }
+                     }
+             }
+
+            /*galleryViewmodel.fetchPhotosBadPractice {
+                CoroutineScope(Dispatchers.Main).launch {
+                    binding.pbMain.visibility = View.GONE
+                    photoAdapter.submitList(it)
+                }
+            }*/
         }
 
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.practice.coroutines.domain.model.MyResult
 import com.practice.coroutines.ui.gallery.data.PhotosPicker
 import com.practice.coroutines.ui.gallery.data.VideosPicker
+import com.practice.coroutines.ui.gallery.model.MediaItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharingStarted
@@ -47,11 +48,9 @@ class GalleryViewmodel @Inject constructor(
         showLoading()
         dataFetcherJob = viewModelScope.launch {
             Log.d("cvrr", "Data Fetching started")
-            val jobsList = mutableListOf<Job>()
-            val job1: Job = launch { photosPicker.queryPhotos() }
+             val job1: Job = launch { photosPicker.queryPhotos() }
             val job2: Job = launch { videosPicker.queryVideos() }
-            jobsList.add(job1)
-            jobsList.add(job2)
+            val jobsList:List<Job> = listOf(job1,job2)
             jobsList.joinAll()
             sendDataFetchingCompletedEvent()
             Log.d("cvrr", "Data Fetching completed")
@@ -70,6 +69,12 @@ class GalleryViewmodel @Inject constructor(
             sendDataFetchingCompletedEvent()
             Log.d("cvrr", "Data Fetching completed")
         }
+    }
+
+
+    fun fetchPhotosBadPractice(callback: (List<MediaItem>) -> Unit) {
+        photosPicker.queryPhotosBadPractice(callback)
+
     }
 
 

@@ -28,9 +28,9 @@
               android:name=".QuoteOfDay.QuoteOfTheDayActivity"
               android:exported="false" />
         -->
-        <activity android:name=".gallery.GalleryActivity" />
+        <activity android:name=".ui.gallery.GalleryActivity" />
         <activity android:name=".quote_of_day.QuoteOfTheDayActivity" />
-        <activity android:name=".quotes.multiple_quote.PopularQuotesActivity" />
+        <activity android:name=".ui.quotes.multiple_quote.PopularQuotesActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

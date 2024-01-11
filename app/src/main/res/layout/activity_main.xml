@@ -49,7 +49,7 @@
         android:id="@+id/btnFetchSingleQuote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:text="Quote Of Day"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvApiCalling" />
@@ -58,7 +58,7 @@
         android:id="@+id/btnQuotesList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
+        android:layout_margin="@dimen/_10sdp"
         android:text="Fetch Popular Quotes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvApiCalling" />
