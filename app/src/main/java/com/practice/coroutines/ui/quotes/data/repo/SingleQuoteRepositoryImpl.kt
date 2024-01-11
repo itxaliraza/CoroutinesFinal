@@ -39,7 +39,6 @@ class SingleQuoteRepositoryImpl @Inject constructor(private val quotesApi: Quote
             _quoteOfDay.value = MyResult.Failure(e.message ?: "Unknown Error")
         }
     }
-
 }
 
 fun MyResult<QuoteItem>.isDataFecthedOrFetching(): Boolean {
