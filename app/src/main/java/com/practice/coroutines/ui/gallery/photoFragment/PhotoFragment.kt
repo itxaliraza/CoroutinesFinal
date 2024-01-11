@@ -1,6 +1,7 @@
 package com.practice.coroutines.ui.gallery.photoFragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,6 +64,7 @@ class PhotoFragment : Fragment() {
                              }
                          }
                      }
+
              }
 
             /*galleryViewmodel.fetchPhotosBadPractice {
@@ -72,7 +74,7 @@ class PhotoFragment : Fragment() {
                 }
             }*/
         }
-
     }
+
 
 }
