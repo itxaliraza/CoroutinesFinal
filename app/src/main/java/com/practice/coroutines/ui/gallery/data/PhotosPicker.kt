@@ -8,10 +8,11 @@ import android.provider.MediaStore
 import com.practice.coroutines.domain.model.MyResult
 import com.practice.coroutines.ui.gallery.model.MediaItem
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PhotosPicker @Inject constructor(@ApplicationContext private val context: Context) {
@@ -38,12 +39,49 @@ class PhotosPicker @Inject constructor(@ApplicationContext private val context: 
     }
 
 
-    suspend fun queryMedia() {
+    /*
+        suspend fun queryPhotos() {
+            _photosMutableFlow.value = MyResult.Loading
+            val photosList: ArrayList<MediaItem> = ArrayList()
+            withContext(Dispatchers.IO) {
+
+                context.contentResolver.query(
+                    getContentUri(), getPhotoProjections(), null, null, null
+                )?.use { cursor ->
+                    cursor.moveToFirst()
+                    val data = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                    val id = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID)
+                    val displayName = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)
+                    val sizeIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE)
+
+                    while (!cursor.isAfterLast) {
+                        val mediaItem = MediaItem(
+                            name = cursor.getString(displayName),
+                            path = cursor.getString(data),
+                            uri = ContentUris.withAppendedId(
+                                getContentUri(), cursor.getLong(id)
+                            ).toString(),
+                            size = cursor.getLong(sizeIndex),
+                            duration = "",
+                            durationInt = 0L,
+                        )
+                        photosList.add(
+                            mediaItem
+                        )
+
+                        cursor.moveToNext()
+                    }
+                }
+                _photosMutableFlow.value = MyResult.Success(photosList)
+            }
+        }
+    */
+
+
+    fun queryPhotos() {
         _photosMutableFlow.value = MyResult.Loading
-
         val photosList: ArrayList<MediaItem> = ArrayList()
-        withContext(Dispatchers.IO) {
-
+        CoroutineScope(Dispatchers.IO).launch() {
             context.contentResolver.query(
                 getContentUri(), getPhotoProjections(), null, null, null
             )?.use { cursor ->

@@ -7,13 +7,10 @@ import com.practice.coroutines.domain.model.MyResult
 import com.practice.coroutines.ui.gallery.data.PhotosPicker
 import com.practice.coroutines.ui.gallery.data.VideosPicker
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,44 +29,52 @@ class GalleryViewmodel @Inject constructor(
 
     private var dataFetcherJob: Job? = null
 
-    private fun cancelPrevFetching() {
-        dataFetcherJob?.cancel()
-    }
-
-    fun fetchGalleryItemsBadPractice() {
-        Log.d("cvrr", "Data Fetching started")
-
-        viewModelScope.launch {
-            cancelPrevFetching()
-            dataFetcherJob = launch {
-                photosPicker.queryMedia()
-                videosPicker.queryVideos()
-            }
-            updateUi()
-            dataFetcherJob?.join()
+    fun fetchGalleryItems() {
+        cancelPrevFetching()
+        showLoading()
+        dataFetcherJob = viewModelScope.launch {
+            Log.d("cvrr", "Data Fetching started")
+            photosPicker.queryPhotos()
+            videosPicker.queryVideos()
             sendDataFetchingCompletedEvent()
             Log.d("cvrr", "Data Fetching completed")
-
         }
     }
-
 
     fun fetchGalleryItemsGoodPractice() {
-        Log.d("cvrr", "Data Fetching started")
 
-        viewModelScope.launch {
-            cancelPrevFetching()
-
-            dataFetcherJob = launch(coroutineContext) {
-                launch { photosPicker.queryMedia() }
-                launch { videosPicker.queryVideos() }
-            }
-            updateUi()
-            dataFetcherJob?.join()
+        cancelPrevFetching()
+        showLoading()
+        dataFetcherJob = viewModelScope.launch {
+            Log.d("cvrr", "Data Fetching started")
+            val jobsList = mutableListOf<Job>()
+            val job1: Job = launch { photosPicker.queryPhotos() }
+            val job2: Job = launch { videosPicker.queryVideos() }
+            jobsList.add(job1)
+            jobsList.add(job2)
+            jobsList.joinAll()
             sendDataFetchingCompletedEvent()
             Log.d("cvrr", "Data Fetching completed")
 
         }
+    }
+
+
+    fun fetchGalleryItemsParallel() {
+        cancelPrevFetching()
+        showLoading()
+        dataFetcherJob = viewModelScope.launch {
+            Log.d("cvrr", "Data Fetching started")
+            launch { photosPicker.queryPhotos() }
+            launch { videosPicker.queryVideos() }
+            sendDataFetchingCompletedEvent()
+            Log.d("cvrr", "Data Fetching completed")
+        }
+    }
+
+
+    private fun cancelPrevFetching() {
+        dataFetcherJob?.cancel()
     }
 
 
@@ -77,7 +82,7 @@ class GalleryViewmodel @Inject constructor(
         // post event to UI or firebase
     }
 
-    private fun updateUi() {
+    private fun showLoading() {
         //Show loading
     }
 
