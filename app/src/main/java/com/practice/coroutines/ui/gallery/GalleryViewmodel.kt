@@ -3,7 +3,7 @@ package com.practice.coroutines.ui.gallery
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practice.coroutines.domain.model.MyResult
+import com.practice.coroutines.model.MyResult
 import com.practice.coroutines.ui.gallery.data.PhotosPicker
 import com.practice.coroutines.ui.gallery.data.VideosPicker
 import com.practice.coroutines.ui.gallery.model.MediaItem

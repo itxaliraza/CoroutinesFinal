@@ -5,7 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import com.practice.coroutines.domain.model.MyResult
+import com.practice.coroutines.model.MyResult
 import com.practice.coroutines.ui.gallery.model.MediaItem
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope

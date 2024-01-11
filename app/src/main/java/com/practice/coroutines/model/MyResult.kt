@@ -1,4 +1,4 @@
-package com.practice.coroutines.domain.model
+package com.practice.coroutines.model
 
 sealed class MyResult<out T> {
     data object Loading : MyResult<Nothing>()

@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.practice.coroutines.databinding.ActivityQuoteOfTheDayBinding
-import com.practice.coroutines.domain.model.MyResult
+import com.practice.coroutines.model.MyResult
 import com.practice.coroutines.ui.quotes.single_quote.QuoteOfDayViewmodel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

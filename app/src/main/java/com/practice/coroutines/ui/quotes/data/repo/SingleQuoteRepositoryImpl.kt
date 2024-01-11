@@ -1,6 +1,6 @@
 package com.practice.coroutines.ui.quotes.data.repo
 
-import com.practice.coroutines.domain.model.MyResult
+import com.practice.coroutines.model.MyResult
 import com.practice.coroutines.ui.quotes.data.api.QuotesApi
 import com.practice.coroutines.ui.quotes.domain.model.QuoteItem
 import com.practice.coroutines.ui.quotes.domain.repo.SingleQuotesrepository

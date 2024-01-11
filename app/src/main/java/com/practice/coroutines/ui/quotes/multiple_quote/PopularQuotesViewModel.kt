@@ -2,7 +2,7 @@ package com.practice.coroutines.ui.quotes.multiple_quote
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practice.coroutines.domain.model.MyResult
+import com.practice.coroutines.model.MyResult
 import com.practice.coroutines.ui.quotes.data.repo.MultipleQuotesRepositoryImpl
 import com.practice.coroutines.ui.quotes.domain.model.QuotesList
 import dagger.hilt.android.lifecycle.HiltViewModel
