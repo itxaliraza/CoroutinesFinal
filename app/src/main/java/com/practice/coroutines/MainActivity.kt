@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             if (it) {
                 startActivity(Intent(this@MainActivity, GalleryActivity::class.java))
+                return@registerForActivityResult
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (!shouldShowRequestPermissionRationale(galleryPermission)) {
                     showSettingsDialog()

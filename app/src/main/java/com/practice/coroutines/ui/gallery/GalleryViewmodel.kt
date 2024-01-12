@@ -105,9 +105,7 @@ class GalleryViewmodel @Inject constructor(
 
     init {
 
-        viewModelScope.launch {
-          photosPicker.queryPhotos()
-        }
+        fetchGalleryItemsGoodPractice()
 
     }
 }
