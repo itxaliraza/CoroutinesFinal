@@ -41,7 +41,7 @@ class VideoFragment : Fragment() {
                 adapter = videoAdapter
             }
 
-            lifecycleScope.launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 galleryViewmodel.videosState.flowWithLifecycle(
                     viewLifecycleOwner.lifecycle,
                     Lifecycle.State.STARTED

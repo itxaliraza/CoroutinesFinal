@@ -42,8 +42,8 @@ class PhotoFragment : Fragment() {
                 adapter = photoAdapter
             }
 
-             lifecycleScope.launch {
-                 galleryViewmodel.photosState.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+             viewLifecycleOwner.lifecycleScope.launch {
+                 galleryViewmodel.photosState.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                      .collectLatest {
                          when (it) {
                              is MyResult.Failure -> {
